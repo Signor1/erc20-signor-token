@@ -85,4 +85,12 @@ contract SignorToken {
 
         emit Transfer(msg.sender, _reciever, _amountOfToken);
     }
+
+    function approve(address _delegate, uint256 _amountOfToken) external {
+        require(balances[msg.sender] > _amountOfToken, "Balance is not enough");
+
+        allow[msg.sender][_delegate] = _amountOfToken;
+
+        emit Approval(msg.sender, _delegate, _amountOfToken);
+    }
 }
