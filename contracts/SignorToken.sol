@@ -55,4 +55,34 @@ contract SignorToken {
     function balanceOf(address _address) external view returns (uint256) {
         return balances[_address];
     }
+
+    function transfer(address _reciever, uint256 _amountOfToken) external {
+        require(_reciever != address(0), "Address is not allowed");
+        require(msg.sender != address(0), "Address is not allowed");
+
+        require(
+            _amountOfToken <= balances[msg.sender],
+            "You can't take more than what is avaliable"
+        );
+
+        // calculating the 10% of transfer amount
+        uint percentageCalc = (_amountOfToken * 10) / 100;
+
+        //sender's balance check
+        uint balanceCheck = _amountOfToken + percentageCalc;
+
+        require(
+            balances[msg.sender] >= balanceCheck,
+            "Not enough balance to run this transaction"
+        );
+
+        //burning the percentage calculation
+        burn(msg.sender, percentageCalc);
+
+        balances[msg.sender] = balances[msg.sender] - _amountOfToken;
+
+        balances[_reciever] = balances[_reciever] + _amountOfToken;
+
+        emit Transfer(msg.sender, _reciever, _amountOfToken);
+    }
 }
