@@ -93,4 +93,11 @@ contract SignorToken {
 
         emit Approval(msg.sender, _delegate, _amountOfToken);
     }
+
+    function allowance(
+        address _owner,
+        address _delegate
+    ) external view returns (uint) {
+        return allow[_owner][_delegate];
+    }
 }
