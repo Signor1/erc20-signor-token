@@ -21,4 +21,17 @@ contract SignorToken {
         //mint method
         mint(1000000000000000000000000000000000000);
     }
+
+    // event for logging
+    event Transfer(
+        address indexed sender,
+        address indexed reciever,
+        uint256 amount
+    );
+
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint256 amount
+    );
 }
