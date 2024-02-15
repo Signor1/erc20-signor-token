@@ -134,4 +134,11 @@ contract SignorToken {
 
         emit Transfer(_owner, _buyer, _amountOfToken);
     }
+
+    function burn(address _address, uint256 _amount) internal {
+        balances[_address] = balances[_address] - _amount;
+        totalSupply = totalSupply - _amount;
+
+        emit Transfer(_address, address(0), _amount);
+    }
 }
