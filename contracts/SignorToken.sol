@@ -42,4 +42,8 @@ contract SignorToken {
     function getSymbol() external view returns (string memory) {
         return tokenSymbol;
     }
+
+    function getTotalSupply() external view returns (uint256) {
+        return totalSupply;
+    }
 }
