@@ -141,4 +141,14 @@ contract SignorToken {
 
         emit Transfer(_address, address(0), _amount);
     }
+
+    //method called in the constructor
+    function mint(uint256 _amount) internal {
+        uint256 actualSupply = _amount * (10 ** 18);
+        balances[owner] = balances[owner] + actualSupply;
+
+        totalSupply = totalSupply + actualSupply;
+
+        emit Transfer(address(0), owner, actualSupply);
+    }
 }
