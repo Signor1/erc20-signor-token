@@ -19,7 +19,7 @@ contract SignorToken {
         tokenSymbol = _symbol;
         owner = msg.sender;
         //mint method
-        mint(1000000000000000000000000000000000000);
+        mint(owner, 1000 * (10 ** uint(decimal())));
     }
 
     // event for logging
@@ -47,7 +47,7 @@ contract SignorToken {
         return totalSupply;
     }
 
-    function decimal() external pure returns (uint8) {
+    function decimal() public pure returns (uint8) {
         return 18;
     }
 
@@ -143,12 +143,13 @@ contract SignorToken {
     }
 
     //method called in the constructor
-    function mint(uint256 _amount) internal {
+    function mint(address to, uint256 _amount) internal {
         uint256 actualSupply = _amount * (10 ** 18);
-        balances[owner] = balances[owner] + actualSupply;
+
+        balances[to] = balances[to] + actualSupply;
 
         totalSupply = totalSupply + actualSupply;
 
-        emit Transfer(address(0), owner, actualSupply);
+        emit Transfer(address(0), to, actualSupply);
     }
 }
